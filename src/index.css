@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modern Monochrome Design System - Black, Grey & White Theme */
+
+@layer base {
+:root {
+    /* Core System - Modern Monochrome */
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+    --background-secondary: 0 0% 6%;
+    --background-tertiary: 0 0% 9%;
+    
+    /* Chat Interface */
+    --chat-background: 0 0% 2%;
+    --chat-surface: 0 0% 7%;
+    
+    /* Card System */
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 96%;
+    --card-border: 0 0% 15%;
+    
+    /* Interactive Elements */
+    --primary: 0 0% 90%;
+    --primary-foreground: 0 0% 9%;
+    --primary-hover: 0 0% 85%;
+    
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --secondary-hover: 0 0% 25%;
+    
+    /* Accent & Highlights */
+    --accent: 0 0% 75%;
+    --accent-foreground: 0 0% 9%;
+    --accent-glow: 0 0% 80%;
+    
+    /* Status Colors */  
+    --success: 0 0% 70%;
+    --success-foreground: 0 0% 9%;
+    --warning: 0 0% 60%;
+    --warning-foreground: 0 0% 9%;
+    --destructive: 0 0% 40%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Messages */
+    --message-user: 0 0% 90%;
+    --message-user-foreground: 0 0% 9%;
+    --message-assistant: 0 0% 12%;
+    --message-assistant-foreground: 0 0% 95%;
+    
+    /* Borders & Inputs */
+    --border: 0 0% 15%;
+    --input: 0 0% 10%;
+    --input-focus: 0 0% 90%;
+    --ring: 0 0% 90%;
+    
+    /* Gradients - Modern Monochrome */
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 2%) 0%, hsl(0 0% 6%) 25%, hsl(0 0% 12%) 75%, hsl(0 0% 18%) 100%);
+    --gradient-chat: linear-gradient(180deg, hsl(0 0% 1%) 0%, hsl(0 0% 5%) 50%, hsl(0 0% 9%) 100%);
+    --gradient-surface: linear-gradient(145deg, hsl(0 0% 8%) 0%, hsl(0 0% 14%) 50%, hsl(0 0% 10%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(0 0% 90% / 0.15) 0%, hsl(0 0% 70% / 0.08) 50%, transparent 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 8% / 0.9) 0%, hsl(0 0% 12% / 0.7) 100%);
+    
+    /* Shadows & Effects - Monochrome depth */
+    --shadow-sm: 0 2px 8px hsl(0 0% 0% / 0.8);
+    --shadow-md: 0 8px 32px hsl(0 0% 0% / 0.6);
+    --shadow-lg: 0 16px 64px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 40px hsl(0 0% 90% / 0.2), 0 0 80px hsl(0 0% 70% / 0.1);
+    --shadow-chat: 0 4px 20px hsl(0 0% 0% / 0.5);
+    --shadow-persona: 0 8px 32px hsl(0 0% 90% / 0.15);
+    
+    /* Animations - Smooth & Bouncy */
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-stream: all 0.1s ease-out;
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-spring: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-fast: all 0.15s ease-out;
+
+    --radius: 1rem;
+
+    --sidebar-background: 220 25% 6%;
+    --sidebar-foreground: 210 40% 85%;
+    --sidebar-primary: 280 100% 70%;
+    --sidebar-primary-foreground: 240 10% 4%;
+    --sidebar-accent: 220 25% 10%;
+    --sidebar-accent-foreground: 210 40% 95%;
+    --sidebar-border: 215 28% 15%;
+    --sidebar-ring: 280 100% 70%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
