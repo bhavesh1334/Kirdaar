@@ -30,8 +30,8 @@ export function LandingPage() {
           </h1>
         </div>
         <p className="animate-slide-down text-base sm:text-lg md:text-xl font-light text-foreground/80 mb-8 sm:mb-12 md:mb-16 max-w-4xl mx-auto px-2">
-          Chat with different AI personas, each with their own unique personality and knowledge. 
-          Select a persona below to start your conversation!
+          Chat with different AI Kirdaar (Character), each with their own unique personality and knowledge. 
+          Select a Character below to start your conversation!
         </p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
@@ -75,7 +75,7 @@ export function LandingPage() {
                 : 'bg-white/20 text-white/70 cursor-not-allowed'
             }`}
           >
-            {selectedPersonaId ? 'Start Chatting' : 'Select a Persona'}
+            {selectedPersonaId ? 'Start Chatting' : 'Select a Kirdaar'}
           </Button>
         </div>
       </div>
