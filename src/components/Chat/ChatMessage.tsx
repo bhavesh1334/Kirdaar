@@ -38,7 +38,7 @@ export function ChatMessage({ message, isStreaming }: ChatMessageProps) {
           "text-xs mt-2 opacity-60",
           isUser ? "text-message-user-foreground" : "text-message-assistant-foreground"
         )}>
-          {message.timestamp.toLocaleTimeString([], { 
+          {message.timestamp && new Date(message.timestamp).toLocaleTimeString([], { 
             hour: '2-digit', 
             minute: '2-digit' 
           })}
