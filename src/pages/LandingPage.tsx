@@ -25,7 +25,7 @@ export function LandingPage() {
     <div className="animate-fade-in min-h-screen bg-gradient-primary flex flex-col items-center justify-center p-4 sm:p-6">
       <div className="w-full max-w-5xl mx-auto text-center">
         <div className="animate-slide-down">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-white drop-shadow-md uppercase">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4 sm:mb-6 text-white drop-shadow-md uppercase">
             Kirdaar
           </h1>
         </div>
@@ -39,10 +39,10 @@ export function LandingPage() {
             <div 
               key={persona.id}
               className={cn(
-                "border rounded-xl p-4 sm:p-6 cursor-pointer transition-all duration-300 ease-smooth hover:-translate-y-1",
+                "border rounded-xl p-4 sm:p-6 bg-primary/10 cursor-pointer transition-all duration-300 ease-smooth hover:-translate-y-1",
                 "flex flex-col h-full",
                 selectedPersonaId === persona.id 
-                  ? "border-primary bg-primary/10 shadow-lg shadow-primary/20" 
+                  ? "border-primary shadow-lg shadow-primary/20" 
                   : "border-border hover:border-primary/50 hover:bg-primary/5"
               )}
               onClick={() => setSelectedPersonaId(persona.id)}
