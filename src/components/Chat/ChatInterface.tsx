@@ -1,16 +1,16 @@
-import { useState, useRef, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { PersonaSelector } from './PersonaSelector';
-import { ChatMessage } from './ChatMessage';
-import { ChatInput } from './ChatInput';
-import { useChat } from '@/hooks/useChat';
-import { defaultPersonas } from '@/data/personas';
-import { Persona } from '@/types/chat';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Button } from '@/components/ui/button';
-import { RotateCcw, PanelLeft, PanelRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import React from 'react';
+import { useState, useRef, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { PersonaSelector } from "./PersonaSelector";
+import { ChatMessage } from "./ChatMessage";
+import { ChatInput } from "./ChatInput";
+import { useChat } from "@/hooks/useChat";
+import { defaultPersonas } from "@/data/personas";
+import { Persona } from "@/types/chat";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { RotateCcw, PanelLeft, PanelRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import React from "react";
 
 export function ChatInterface() {
   const { personaId } = useParams<{ personaId: string }>();
@@ -20,7 +20,7 @@ export function ChatInterface() {
   const [error, setError] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-  
+
   const {
     messages,
     streamingState,
@@ -28,47 +28,44 @@ export function ChatInterface() {
     clearMessages,
     loadMessages,
     setApiKey,
-    isConfigured
+    isConfigured,
   } = useChat();
 
   // Set the selected persona based on URL parameter
   React.useEffect(() => {
     const loadPersona = async () => {
       if (!personaId) {
-        setError('No persona ID provided');
+        setError("No persona ID provided");
         setIsLoading(false);
-        navigate('/');
+        navigate("/");
         return;
       }
 
       try {
         setIsLoading(true);
         setError(null);
-        
-        const persona = defaultPersonas.find(p => p.id === personaId);
-        
+        const persona = defaultPersonas.find((p) => p.id === personaId);
         if (!persona) {
           throw new Error(`Persona with ID ${personaId} not found`);
         }
-
         // Ensure persona has required fields
         const validPersona: Persona = {
           ...persona,
           personality: {
             traits: persona.personality?.traits || [],
-            speakingStyle: persona.personality?.speakingStyle || '',
-            examples: persona.personality?.examples || []
+            speakingStyle: persona.personality?.speakingStyle || "",
+            examples: persona.personality?.examples || [],
           },
-          avatar: persona.avatar || '',
-          color: persona.color || 'hsl(0, 0%, 50%)'
+          avatar: persona.avatar || "",
+          color: persona.color || "hsl(0, 0%, 50%)",
         };
 
         setSelectedPersona(validPersona);
         await loadMessages(personaId);
       } catch (err) {
-        console.error('Error loading persona:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load persona');
-        navigate('/');
+        console.error("Error loading persona:", err);
+        setError(err instanceof Error ? err.message : "Failed to load persona");
+        navigate("/");
       } finally {
         setIsLoading(false);
       }
@@ -83,13 +80,15 @@ export function ChatInterface() {
     if (apiKey) {
       setApiKey(apiKey);
     } else {
-      console.warn('No OpenAI API key found in environment variables');
+      console.warn("No OpenAI API key found in environment variables");
     }
   }, [setApiKey]);
 
   const scrollToBottom = () => {
     if (scrollAreaRef.current) {
-      const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+      const scrollElement = scrollAreaRef.current.querySelector(
+        "[data-radix-scroll-area-viewport]"
+      );
       if (scrollElement) {
         scrollElement.scrollTop = scrollElement.scrollHeight;
       }
@@ -125,9 +124,7 @@ export function ChatInterface() {
         <div className="text-center p-6 max-w-md bg-red-900/20 rounded-lg">
           <h2 className="text-xl font-bold text-red-400 mb-2">Error</h2>
           <p className="text-red-200 mb-4">{error}</p>
-          <Button onClick={() => navigate('/')}>
-            Return to Home
-          </Button>
+          <Button onClick={() => navigate("/")}>Return to Home</Button>
         </div>
       </div>
     );
@@ -139,26 +136,44 @@ export function ChatInterface() {
         <div className="text-center">
           <h2 className="text-xl font-bold mb-2">No Persona Selected</h2>
           <p className="mb-4">Please select a persona to start chatting</p>
-          <Button onClick={() => navigate('/')}>
-            Choose a Persona
-          </Button>
+          <Button onClick={() => navigate("/")}>Choose a Persona</Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen bg-gradient-primary" key={`chat-${personaId}`}>
+    <div
+      className="flex h-screen bg-gradient-primary"
+      key={`chat-${personaId}`}
+    >
       {/* Persona Selector Sidebar */}
-      <div className={cn(
-        "border-r border-border bg-gradient-surface backdrop-blur-xl shadow-lg transition-all duration-300 ease-in-out",
-        sidebarOpen ? "w-[20rem]" : "w-0 overflow-hidden"
-      )}>
-        <PersonaSelector
-          personas={defaultPersonas}
-          selectedPersona={selectedPersona}
-          onPersonaChange={handlePersonaChange}
-        />
+      <div
+        className={cn(
+          "border-r border-border fixed top-0 left-0 z-50 md:relative h-full bg-gradient-surface backdrop-blur-xl shadow-lg transition-all duration-300 ease-in-out flex flex-col",
+          sidebarOpen ? "w-[20rem]" : "w-0 overflow-hidden"
+        )}
+      >
+        <div className="flex-1 overflow-y-auto">
+          <PersonaSelector
+            personas={defaultPersonas}
+            selectedPersona={selectedPersona}
+            onPersonaChange={handlePersonaChange}
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+          />
+        </div>
+        <footer className="w-full py-8 text-center text-xs text-white/60 px-4">
+          Built with ❤️ by{' '}
+          <a 
+            href="https://github.com/bhavesh1334/Kirdaar" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-white/80 hover:text-white transition-colors hover:underline underline-offset-4 italic"
+          >
+            Bhavesh Chandrakar
+          </a>
+        </footer>
       </div>
 
       {/* Main Chat Area */}
@@ -172,18 +187,22 @@ export function ChatInterface() {
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="text-foreground/60 hover:text-foreground hover:bg-primary/10 transition-all duration-300"
             >
-              {sidebarOpen ? <PanelRight size={32} /> : <PanelLeft  size={32}/>}
+              {sidebarOpen ? <PanelRight size={32} /> : <PanelLeft size={32} />}
             </Button>
             {selectedPersona && (
               <>
-                <img 
-                  src={selectedPersona.avatar} 
+                <img
+                  src={selectedPersona.avatar}
                   alt={selectedPersona.name}
                   className="w-12 h-12 rounded-full ring-2 ring-primary/30 shadow-lg"
                 />
                 <div>
-                  <h2 className="text-xl font-bold text-foreground">{selectedPersona.name}</h2>
-                  <p className="text-sm text-foreground/70 line-clamp-2">{selectedPersona.description}</p>
+                  <h2 className="text-xl font-bold text-foreground">
+                    {selectedPersona.name}
+                  </h2>
+                  <p className="text-sm text-foreground/70 line-clamp-1 md:line-clamp-2">
+                    {selectedPersona.description}
+                  </p>
                 </div>
               </>
             )}
@@ -216,7 +235,10 @@ export function ChatInterface() {
                 <div className="mt-6 flex flex-wrap justify-center gap-2">
                   {selectedPersona.personality?.traits?.length ? (
                     selectedPersona.personality.traits.map((trait) => (
-                      <span key={trait} className="px-3 capitalize py-1 bg-primary/10 text-primary rounded-full text-sm">
+                      <span
+                        key={trait}
+                        className="px-3 capitalize py-1 bg-primary/10 text-primary rounded-full text-sm"
+                      >
                         {trait}
                       </span>
                     ))
@@ -242,7 +264,7 @@ export function ChatInterface() {
         {/* Chat Input */}
         <div className="border-t border-border bg-[#332f36] backdrop-blur-xl rounded-lg p-6">
           <div className="max-w-7xl mx-auto">
-            <ChatInput 
+            <ChatInput
               onSendMessage={handleSendMessage}
               disabled={streamingState.isStreaming}
               placeholder={`Message ${selectedPersona.name}...`}

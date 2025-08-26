@@ -3,36 +3,52 @@ import { Persona } from "@/types/chat";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useEffect, useState } from "react";
+import { PanelRight, PanelLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface PersonaSelectorProps {
   personas: Persona[];
   selectedPersona: Persona;
   onPersonaChange: (persona: Persona) => void;
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 
 export function PersonaSelector({
   personas,
   selectedPersona,
   onPersonaChange,
+  sidebarOpen,
+  setSidebarOpen
 }: PersonaSelectorProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="w-[20rem] bg-background-secondary border-r border-border p-6 overflow-y-auto">
-      <div className="mb-6">
-        <h2
-          className="text-xl font-semibold text-foreground mb-2 hover:text-primary transition-colors duration-300 cursor-pointer transform"
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate("/");
-          }}
-        >
-       <span className="cursor-pointer">Kirdaar</span>
+    <div className="w-[20rem] fixed top-0 left-0 z-50 bg-background-secondary border-r border-border p-6 overflow-y-auto">
+      <div className="mb-6 relative">
+        <h2 className="text-xl font-semibold text-foreground mb-2 hover:text-primary transition-colors duration-300 cursor-pointer transform">
+          <span
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate("/");
+            }}
+            className="cursor-pointer"
+          >
+            Kirdaar
+          </span>
         </h2>
         <p className="text-sm text-foreground/70">
           Choose who you'd like to talk with
         </p>
+        <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSidebarOpen(prev=> !prev)}
+              className="text-foreground/60 md:hidden absolute -top-1 -right-2 hover:text-foreground hover:bg-primary/10 transition-all duration-300"
+            >
+              {sidebarOpen ? <PanelRight size={32} /> : <PanelLeft size={32} />}
+            </Button>
       </div>
 
       <div className="space-y-3">
@@ -55,18 +71,16 @@ export function PersonaSelector({
               onClick={() => onPersonaChange(persona)}
             >
               <div className="flex items-center gap-3">
-                <div className="relative">
-                  <img
-                    src={persona.avatar}
-                    alt={persona.name}
-                    className={cn(
-                      "w-30 rounded-full transition-all duration-300",
-                      isSelected
-                        ? "border-primary scale-110"
-                        : "border-transparent group-hover:border-primary/30 group-hover:scale-105"
-                    )}
-                  />
-                </div>
+                <img
+                  src={persona.avatar}
+                  alt={persona.name}
+                  className={cn(
+                    "w-10 h-10 ring-2 ring-primary/30 shadow-lg flex flex-shrink-0 rounded-full transition-all duration-300",
+                    isSelected
+                      ? "border-primary scale-110"
+                      : "border-transparent group-hover:border-primary/30 group-hover:scale-105"
+                  )}
+                />
                 <div className="overflow-hidden">
                   <h3 className="font-medium transition-colors duration-300 group-hover:text-primary">
                     {persona.name}
