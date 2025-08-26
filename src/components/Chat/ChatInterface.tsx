@@ -77,12 +77,13 @@ export function ChatInterface() {
     loadPersona();
   }, [personaId, navigate, loadMessages]);
 
-  // Auto-set the provided API key on mount
+  // Auto-set the provided API key from environment variables
   React.useEffect(() => {
-    // IMPORTANT: Replace this with a proper API key management system in production
-    const apiKey = 'my key';
+    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
     if (apiKey) {
       setApiKey(apiKey);
+    } else {
+      console.warn('No OpenAI API key found in environment variables');
     }
   }, [setApiKey]);
 
