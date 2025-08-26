@@ -150,7 +150,7 @@ export function ChatInterface() {
       {/* Persona Selector Sidebar */}
       <div
         className={cn(
-          "border-r border-border fixed top-0 left-0 z-50 md:relative h-full bg-gradient-surface backdrop-blur-xl shadow-lg transition-all duration-300 ease-in-out flex flex-col",
+          "border-r border-border fixed top-0 left-0 z-50 md:relative h-full bg-background-secondary backdrop-blur-xl shadow-lg transition-all duration-300 ease-in-out flex flex-col",
           sidebarOpen ? "w-[20rem]" : "w-0 overflow-hidden"
         )}
       >
@@ -220,7 +220,7 @@ export function ChatInterface() {
         </div>
 
         {/* Messages Area */}
-        <ScrollArea className="flex-1 bg-[#332f36]" ref={scrollAreaRef}>
+        <ScrollArea className="flex-1 bg-[rgb(36,_34,_38)] py-4 px-3 md:p-6" ref={scrollAreaRef}>
           <div className="space-y-6 max-w-7xl mx-auto m-6">
             {messages.length === 0 ? (
               <div className="text-center text-foreground/50 mt-20 animate-fade-in">
@@ -262,7 +262,7 @@ export function ChatInterface() {
         </ScrollArea>
 
         {/* Chat Input */}
-        <div className="border-t border-border bg-[#332f36] backdrop-blur-xl rounded-lg p-6">
+        <div className="bg-[rgb(36,_34,_38)] backdrop-blur-xl py-4 px-3 md:p-6">
           <div className="max-w-7xl mx-auto">
             <ChatInput
               onSendMessage={handleSendMessage}

@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { Persona } from "@/types/chat";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { PanelRight, PanelLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useEffect } from "react";
 
 interface PersonaSelectorProps {
   personas: Persona[];
@@ -23,9 +24,20 @@ export function PersonaSelector({
   setSidebarOpen
 }: PersonaSelectorProps) {
   const navigate = useNavigate();
+  const isMobile = useIsMobile()
+
+
+useEffect(() => {
+  if(isMobile){
+    setSidebarOpen(false)
+  }
+}, [isMobile])
+
+
+
 
   return (
-    <div className="w-[20rem] fixed top-0 left-0 z-50 bg-background-secondary border-r border-border p-6 overflow-y-auto">
+    <div className="w-[20rem] fixed top-0 left-0 z-50  border-r border-border p-6 overflow-y-auto">
       <div className="mb-6 relative">
         <h2 className="text-xl font-semibold text-foreground mb-2 hover:text-primary transition-colors duration-300 cursor-pointer transform">
           <span
