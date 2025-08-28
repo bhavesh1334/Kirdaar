@@ -61,33 +61,62 @@ const components = {
   hr: ({ node, ...props }: any) => <hr className="my-4 border-gray-700" {...props} />,
 };
 
+import { defaultPersonas } from "@/data/personas";
+
+
 interface ChatMessageProps {
   message: Message;
   isStreaming?: boolean;
+  personaId?: string;
 }
 
-export function ChatMessage({ message, isStreaming }: ChatMessageProps) {
+export function ChatMessage({ message, isStreaming, personaId }: ChatMessageProps) {
   const isUser = message.role === 'user';
-  
+  console.log(personaId,"PERSONAID")
+  const persona = defaultPersonas.find(p => p.id === personaId);
+  const avatar = persona?.avatar
+  console.log(persona,"PERSONA")
+
   return (
     <div className={cn(
-      "flex mb-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-300",
+      "group flex mb-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-300",
       isUser ? "justify-end" : "justify-start"
     )}>
+      {!isUser && (
+        <div className="flex-shrink-0 mr-3 mt-6 self-start mb-1">
+          <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-muted-foreground/20">
+            <img
+              src={persona?.avatar}
+              alt={persona?.name}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.onerror = null;
+                target.src = 'https://ui-avatars.com/api/?name=' + (persona?.name || 'AI');
+              }}
+            />
+          </div>
+        </div>
+      )}
       <div className={cn(
-        "max-w-[70%] rounded-lg px-4 py-3 relative",
+        "max-w-[70%] rounded-2xl px-4 py-3 relative",
         "transition-all duration-200 ease-smooth",
         isUser 
-          ? "bg-message-user text-message-user-foreground ml-12" 
-          : "bg-message-assistant text-message-assistant-foreground mr-12 border border-card-border"
+          ? "bg-message-user text-message-user-foreground ml-12 rounded-tr-none" 
+          : "bg-message-assistant text-message-assistant-foreground mr-12 rounded-tl-none border border-card-border"
       )}>
+        {/* {!isUser && persona && (
+          <div className="font-medium text-xs text-muted-foreground mb-1">
+            {persona.name}
+          </div>
+        )} */}
         <div className="text-sm leading-relaxed">
           {isUser ? (
             <div className="whitespace-pre-wrap">{message.content}</div>
           ) : (
             <div className={cn(
               "prose prose-sm dark:prose-invert max-w-none",
-              isStreaming && "animate-in fade-in-0 slide-in-from-left-2"
+              isStreaming && "animate-pulse"
             )}>
               <div className="[&_pre]:!mt-0 [&_pre]:!mb-0 [&_pre]:!rounded-lg [&_pre]:!bg-gray-800 [&_pre]:!p-4 [&_pre]:overflow-x-auto">
                 <ReactMarkdown 

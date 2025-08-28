@@ -87,7 +87,7 @@ useEffect(() => {
                   src={persona.avatar}
                   alt={persona.name}
                   className={cn(
-                    "w-10 h-10 ring-2 ring-primary/30 shadow-lg flex flex-shrink-0 rounded-full transition-all duration-300",
+                    "w-10 h-10 ring-2 object-cover ring-primary/30 shadow-lg flex flex-shrink-0 rounded-full transition-all duration-300",
                     isSelected
                       ? "border-primary scale-110"
                       : "border-transparent group-hover:border-primary/30 group-hover:scale-105"

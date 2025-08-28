@@ -194,7 +194,7 @@ export function ChatInterface() {
                 <img
                   src={selectedPersona.avatar}
                   alt={selectedPersona.name}
-                  className="w-12 h-12 rounded-full ring-2 ring-primary/30 shadow-lg"
+                  className="w-12 h-12 object-cover rounded-full ring-2 ring-primary/30 shadow-lg"
                 />
                 <div>
                   <h2 className="text-xl font-bold text-foreground">
@@ -255,6 +255,7 @@ export function ChatInterface() {
                   key={message.id}
                   message={message}
                   isStreaming={streamingState.currentMessageId === message.id}
+                  personaId={message.role ==="assistant" ? selectedPersona?.id : undefined}
                 />
               ))
             )}

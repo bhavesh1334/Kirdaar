@@ -51,7 +51,7 @@ export function LandingPage() {
                 <img 
                   src={persona.avatar} 
                   alt={persona.name}
-                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-primary/30 hover:scale-105 transition-transform duration-300 flex-shrink-0"
+                  className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-full border-2 border-primary/30 hover:scale-105 transition-transform duration-300 flex-shrink-0"
                 />
                 <div className="text-left">
                   <h3 className="text-lg sm:text-xl font-semibold line-clamp-1">{persona.name}</h3>
@@ -80,7 +80,7 @@ export function LandingPage() {
         </div>
       </div>
       
-      <footer className="w-full py-4 text-center text-xs text-white/60 mt-8 sm:mt-20">
+      <footer className="w-full py-4 text-center text-xs text-white/60 mt-8">
         Built with ❤️ by{' '}
         <a 
           href="https://github.com/bhavesh1334/Kirdaar" 
