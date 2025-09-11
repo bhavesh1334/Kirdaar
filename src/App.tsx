@@ -6,20 +6,20 @@ import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage";
 import { ChatInterface } from "./components/Chat/ChatInterface";
 import NotFound from "./pages/NotFound";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
 // Wrapper component to handle route parameters
 const ChatRoute = () => {
   const { personaId } = useParams<{ personaId: string }>();
-  
+
   useEffect(() => {
-    console.log('ChatRoute mounted with personaId:', personaId);
+    console.log("ChatRoute mounted with personaId:", personaId);
   }, [personaId]);
 
   if (!personaId) {
-    console.error('No personaId provided in route');
+    console.error("No personaId provided in route");
     return <div>Error: No persona selected</div>;
   }
 
@@ -27,8 +27,8 @@ const ChatRoute = () => {
 };
 
 const App = () => {
-  console.log('App rendering');
-  
+  console.log("App rendering");
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
