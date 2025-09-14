@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: './', // Add this line to ensure proper path resolution
+  base: '/', // Use absolute path for proper routing
   server: {
     host: "::",
     port: 8080,
